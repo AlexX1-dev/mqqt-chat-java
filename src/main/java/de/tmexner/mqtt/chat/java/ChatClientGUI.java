@@ -10,11 +10,21 @@ public class ChatClientGUI extends JFrame {
     private final JTextArea chatDisplayArea;
     private final JTextField messageInputField;
 
+    private final JTextField usernameField;
+
     public ChatClientGUI() {
         setTitle("MQTT Chat Client");
         setSize(800, 600);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
+
+        JPanel usernamePanel = new JPanel();
+        usernamePanel.setLayout(new BorderLayout());
+        JLabel usernameLabel = new JLabel("Username: ");
+        usernameField = new JTextField();
+        usernamePanel.add(usernameLabel, BorderLayout.WEST);
+        usernamePanel.add(usernameField, BorderLayout.CENTER);
+        add(usernamePanel, BorderLayout.NORTH);
 
         chatListModel = new DefaultListModel<>();
         chatList = new JList<>(chatListModel);
@@ -68,6 +78,7 @@ public class ChatClientGUI extends JFrame {
         if (!message.isEmpty()) {
             chatDisplayArea.append("Me: " + message + "\n");
             messageInputField.setText("");
+            System.out.println("Sending message using topic " + getTopicForSelectedChat());
             sendMQTTMessage(selectedChat, message);
         }
     }
@@ -78,6 +89,18 @@ public class ChatClientGUI extends JFrame {
 
     public void receiveMQTTMessage(String topic, String message) {
 
+    }
+
+    public String getUsername() {
+        return usernameField.getText().trim();
+    }
+
+    public String getSelectedChat() {
+        return chatList.getSelectedValue();
+    }
+
+    public String getTopicForSelectedChat() {
+        return "messanger/" + getUsername() + "/" + getSelectedChat();
     }
 
     public static void main(String[] args) {
