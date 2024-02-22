@@ -37,12 +37,16 @@ public class ChatClientGUI extends JFrame {
         JLabel mqttBrokerPortLabel = new JLabel("Broker Port: ");
         mqttBrokerPortField = new JTextField(5);
 
+        JButton connectButton = new JButton("Connect");
+
+
         usernamePanel.add(usernameLabel);
         usernamePanel.add(usernameField);
         usernamePanel.add(mqttBrokerIpLabel);
         usernamePanel.add(mqttBrokerIpField);
         usernamePanel.add(mqttBrokerPortLabel);
         usernamePanel.add(mqttBrokerPortField);
+        usernamePanel.add(connectButton);
 
         add(usernamePanel, BorderLayout.NORTH);
 
