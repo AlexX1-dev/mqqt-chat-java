@@ -59,7 +59,7 @@ public class ChatClientGUI extends JFrame {
                 return;
             }
 
-            MQTTListener listener = new MQTTListener(mqttBrokerIp, mqttBrokerPort, username);
+            MQTTListener listener = new MQTTListener(mqttBrokerIp, mqttBrokerPort, username, this);
             try {
                 listener.subscribe();
             } catch (MqttException ex) {

@@ -8,15 +8,18 @@ public class MQTTListener implements MqttCallback {
     private final int port;
     private final String username;
 
+    private final ChatClientGUI gui;
+
     private final String broker;
 
     private final String topic;
-    public MQTTListener(String ip, int port, String username) {
+    public MQTTListener(String ip, int port, String username, ChatClientGUI gui) {
         this.ip = ip;
         this.port = port;
         this.username = username;
         this.broker = "tcp://" + ip + ":" + port;
         this.topic = "mqtt-chat/" + username + "/#";
+        this.gui = gui;
     }
 
     void subscribe() throws MqttException {
@@ -38,6 +41,8 @@ public class MQTTListener implements MqttCallback {
 
     @Override
     public void messageArrived(String s, MqttMessage mqttMessage) throws Exception {
+        String message = new String(mqttMessage.getPayload());
+        gui.receiveMQTTMessage(s, message);
 
     }
 
