@@ -89,7 +89,10 @@ public class ChatClientGUI extends JFrame {
     }
 
     public void receiveMQTTMessage(String topic, String message) {
-        chatDisplayArea.append(getUsername() + ": " + message + "\n");
+        if(topic.equals(getTopicForSelectedChat())){
+            chatDisplayArea.append(getUsername() + ": " + message + "\n");
+
+        }
 
     }
 
