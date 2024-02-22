@@ -5,16 +5,15 @@ import java.awt.*;
 
 public class ChatClientGUI extends JFrame {
 
-    private DefaultListModel<String> chatListModel;
-    private JList<String> chatList;
-    private JTextArea chatDisplayArea;
-    private JTextField messageInputField;
-    private JButton sendMessageButton;
+    private final DefaultListModel<String> chatListModel;
+    private final JList<String> chatList;
+    private final JTextArea chatDisplayArea;
+    private final JTextField messageInputField;
 
     public ChatClientGUI() {
         setTitle("MQTT Chat Client");
         setSize(800, 600);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
         chatListModel = new DefaultListModel<>();
@@ -35,7 +34,7 @@ public class ChatClientGUI extends JFrame {
         JPanel messagePanel = new JPanel();
         messagePanel.setLayout(new BorderLayout());
         messageInputField = new JTextField();
-        sendMessageButton = new JButton("Send");
+        JButton sendMessageButton = new JButton("Send");
         sendMessageButton.addActionListener(e -> sendMessage());
         messagePanel.add(messageInputField, BorderLayout.CENTER);
         messagePanel.add(sendMessageButton, BorderLayout.EAST);
@@ -74,6 +73,7 @@ public class ChatClientGUI extends JFrame {
     }
 
     private void sendMQTTMessage(String topic, String message) {
+
     }
 
     public void receiveMQTTMessage(String topic, String message) {
