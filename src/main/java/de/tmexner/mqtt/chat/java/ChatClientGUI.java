@@ -1,5 +1,7 @@
 package de.tmexner.mqtt.chat.java;
 
+import org.eclipse.paho.client.mqttv3.MqttException;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -38,6 +40,32 @@ public class ChatClientGUI extends JFrame {
         mqttBrokerPortField = new JTextField(5);
 
         JButton connectButton = new JButton("Connect");
+        connectButton.addActionListener(e -> {
+            String username = getUsername();
+            if (username.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please enter a username.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            String mqttBrokerIp = getMqttBrokerIp();
+            if (mqttBrokerIp.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please enter a broker IP.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            int mqttBrokerPort = getMqttBrokerPort();
+            if (mqttBrokerPort <= 0) {
+                JOptionPane.showMessageDialog(this, "Please enter a valid broker port.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            MQTTListener listener = new MQTTListener(mqttBrokerIp, mqttBrokerPort, username);
+            try {
+                listener.subscribe();
+            } catch (MqttException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
 
 
         usernamePanel.add(usernameLabel);
