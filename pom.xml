@@ -1,7 +1,7 @@
 <project>
   <modelVersion>4.0.0</modelVersion>
  
-  <groupId>de.tmexner-dev.mqtt</groupId>
+  <groupId>de.tmexner.mqtt</groupId>
   <artifactId>mqtt-chat-java</artifactId>
   <version>0.1 DEVELOMENT</version>
 </project>
