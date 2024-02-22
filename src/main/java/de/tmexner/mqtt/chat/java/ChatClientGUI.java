@@ -5,6 +5,7 @@ import java.awt.*;
 
 public class ChatClientGUI extends JFrame {
 
+
     private final DefaultListModel<String> chatListModel;
     private final JList<String> chatList;
     private final JTextArea chatDisplayArea;
