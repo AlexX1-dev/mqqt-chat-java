@@ -13,6 +13,9 @@ public class ChatClientGUI extends JFrame {
 
     private final JTextField usernameField;
 
+    private final JTextField mqttBrokerIpField;
+    private final JTextField mqttBrokerPortField;
+
     public ChatClientGUI() {
         setTitle("MQTT Chat Client");
         setSize(800, 600);
@@ -20,12 +23,26 @@ public class ChatClientGUI extends JFrame {
         setLayout(new BorderLayout());
 
         JPanel usernamePanel = new JPanel();
-        usernamePanel.setLayout(new BorderLayout());
+        usernamePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         JLabel usernameLabel = new JLabel("Username: ");
-        usernameField = new JTextField();
-        usernamePanel.add(usernameLabel, BorderLayout.WEST);
-        usernamePanel.add(usernameField, BorderLayout.CENTER);
+        usernameField = new JTextField(10); // Adjust size as needed
+
+        JLabel mqttBrokerIpLabel = new JLabel("Broker IP: ");
+        mqttBrokerIpField = new JTextField(10); // Adjust size as needed
+
+        JLabel mqttBrokerPortLabel = new JLabel("Broker Port: ");
+        mqttBrokerPortField = new JTextField(5); // Adjust size as needed
+
+        usernamePanel.add(usernameLabel);
+        usernamePanel.add(usernameField);
+        usernamePanel.add(mqttBrokerIpLabel);
+        usernamePanel.add(mqttBrokerIpField);
+        usernamePanel.add(mqttBrokerPortLabel);
+        usernamePanel.add(mqttBrokerPortField);
+
         add(usernamePanel, BorderLayout.NORTH);
+
+
 
         chatListModel = new DefaultListModel<>();
         chatList = new JList<>(chatListModel);
@@ -89,7 +106,7 @@ public class ChatClientGUI extends JFrame {
     }
 
     public void receiveMQTTMessage(String topic, String message) {
-        if(topic.equals(getTopicForSelectedChat())){
+        if (topic.equals(getTopicForSelectedChat())) {
             chatDisplayArea.append(getUsername() + ": " + message + "\n");
 
         }
@@ -106,6 +123,14 @@ public class ChatClientGUI extends JFrame {
 
     public String getTopicForSelectedChat() {
         return "messanger/" + getUsername() + "/" + getSelectedChat();
+    }
+
+    public String getMqttBrokerIp() {
+        return mqttBrokerIpField.getText().trim();
+    }
+
+    public int getMqttBrokerPort() {
+        return Integer.parseInt(mqttBrokerPortField.getText().trim());
     }
 
     public static void main(String[] args) {
