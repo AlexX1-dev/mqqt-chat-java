@@ -1,6 +1,12 @@
 <project>
   <modelVersion>4.0.0</modelVersion>
- 
+  <dependencies>
+    <dependency>
+      <groupId>org.eclipse.paho</groupId>
+      <artifactId>org.eclipse.paho.client.mqttv3</artifactId>
+      <version>1.0.2</version>
+    </dependency>
+  </dependencies>
   <groupId>de.tmexner.mqtt</groupId>
   <artifactId>chat.java</artifactId>
   <version>0.1 DEVELOMENT</version>
