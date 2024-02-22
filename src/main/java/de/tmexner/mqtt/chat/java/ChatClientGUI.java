@@ -58,8 +58,8 @@ public class ChatClientGUI extends JFrame {
     }
 
     private void initializeChats() {
-        chatListModel.addElement("messanger/john_doe/jane_doe");
-        chatListModel.addElement("messanger/jane_doe/john_doe");
+        chatListModel.addElement("jane_doe");
+        chatListModel.addElement("john_doe");
     }
 
     private void chatSelected() {
