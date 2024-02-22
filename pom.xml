@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
  
   <groupId>de.tmexner.mqtt</groupId>
-  <artifactId>mqtt-chat-java</artifactId>
+  <artifactId>chat.java</artifactId>
   <version>0.1 DEVELOMENT</version>
 </project>
 
