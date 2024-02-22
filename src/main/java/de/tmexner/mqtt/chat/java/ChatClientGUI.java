@@ -2,6 +2,10 @@ package de.tmexner.mqtt.chat.java;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ChatClientGUI extends JFrame {
 
@@ -10,11 +14,11 @@ public class ChatClientGUI extends JFrame {
     private final JList<String> chatList;
     private final JTextArea chatDisplayArea;
     private final JTextField messageInputField;
-
     private final JTextField usernameField;
-
     private final JTextField mqttBrokerIpField;
     private final JTextField mqttBrokerPortField;
+    private final Map<String, List<String>> chatHistories = new HashMap<>();
+
 
     public ChatClientGUI() {
         setTitle("MQTT Chat Client");
@@ -25,13 +29,13 @@ public class ChatClientGUI extends JFrame {
         JPanel usernamePanel = new JPanel();
         usernamePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         JLabel usernameLabel = new JLabel("Username: ");
-        usernameField = new JTextField(10); // Adjust size as needed
+        usernameField = new JTextField(10);
 
         JLabel mqttBrokerIpLabel = new JLabel("Broker IP: ");
-        mqttBrokerIpField = new JTextField(10); // Adjust size as needed
+        mqttBrokerIpField = new JTextField(10);
 
         JLabel mqttBrokerPortLabel = new JLabel("Broker Port: ");
-        mqttBrokerPortField = new JTextField(5); // Adjust size as needed
+        mqttBrokerPortField = new JTextField(5);
 
         usernamePanel.add(usernameLabel);
         usernamePanel.add(usernameField);
@@ -41,7 +45,6 @@ public class ChatClientGUI extends JFrame {
         usernamePanel.add(mqttBrokerPortField);
 
         add(usernamePanel, BorderLayout.NORTH);
-
 
 
         chatListModel = new DefaultListModel<>();
@@ -83,6 +86,13 @@ public class ChatClientGUI extends JFrame {
         String selectedChat = chatList.getSelectedValue();
         chatDisplayArea.setText("");
         chatDisplayArea.append("Chat history for " + selectedChat + "\n");
+
+        List<String> history = chatHistories.get(selectedChat);
+        if (history != null) {
+            for (String message : history) {
+                chatDisplayArea.append(message + "\n");
+            }
+        }
     }
 
     private void sendMessage() {
@@ -94,9 +104,13 @@ public class ChatClientGUI extends JFrame {
 
         String message = messageInputField.getText().trim();
         if (!message.isEmpty()) {
-            chatDisplayArea.append("Me: " + message + "\n");
+            String formattedMessage = "Me: " + message;
+            chatDisplayArea.append(formattedMessage + "\n");
             messageInputField.setText("");
             System.out.println("Sending message using topic " + getTopicForSelectedChat());
+
+            chatHistories.computeIfAbsent(selectedChat, k -> new ArrayList<>()).add(formattedMessage);
+
             sendMQTTMessage(selectedChat, message);
         }
     }
@@ -107,9 +121,13 @@ public class ChatClientGUI extends JFrame {
 
     public void receiveMQTTMessage(String topic, String message) {
         if (topic.equals(getTopicForSelectedChat())) {
-            chatDisplayArea.append(getUsername() + ": " + message + "\n");
+            String formattedMessage = getUsername() + ": " + message;
+            chatDisplayArea.append(formattedMessage + "\n");
 
+            // Save the message to the chat history
+            chatHistories.computeIfAbsent(getSelectedChat(), k -> new ArrayList<>()).add(formattedMessage);
         }
+
 
     }
 
