@@ -12,8 +12,8 @@
     <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
   <groupId>de.tmexner.mqtt</groupId>
-  <artifactId>chat.java</artifactId>
-  <version>0.1 DEVELOMENT</version>
+  <artifactId>chat</artifactId> 
+  <version>0.1 DEVELOPMENT</version>
   <build>
     <plugins>
       <plugin>
@@ -28,26 +28,13 @@
             </goals>
             <configuration>
               <transformers>
-          <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-            <mainClass>de.tmexner.mqtt.chat.java.ChatClientGUI</mainClass>
-          </transformer>
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                  <mainClass>de.tmexner.mqtt.chat.java.Main</mainClass> 
+                </transformer>
               </transformers>
             </configuration>
           </execution>
         </executions>
-      </plugin>
-      <plugin>
-        <groupId> org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <version>3.2.0</version>
-        <configuration>
-          <archive>
-            <manifest>
-              <addClasspath>true</addClasspath>
-              <mainClass>de.tmexner.mqtt.chat.java.ChatClientGUI</mainClass>
-            </manifest>
-          </archive>
-        </configuration>
       </plugin>
     </plugins>
   </build>
