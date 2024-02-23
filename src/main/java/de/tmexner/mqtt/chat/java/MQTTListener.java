@@ -19,7 +19,7 @@ public class MQTTListener implements MqttCallback {
     this.gui = gui;
   }
 
-  void subscribe() throws MqttException {
+  public void subscribe() throws MqttException {
     MemoryPersistence persistence = new MemoryPersistence();
     MqttClient client = new MqttClient(broker, username, persistence);
     MqttConnectOptions connOpts = new MqttConnectOptions();
