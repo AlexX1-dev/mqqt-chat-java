@@ -195,7 +195,7 @@ public class ChatClientGUI extends JFrame {
   }
 
   public String getTopicForSelectedChat() {
-    return "messanger/" + getUsername() + "/" + getSelectedChat();
+    return "messenger/" + getUsername() + "/" + getSelectedChat();
   }
 
   public String getMqttBrokerIp() {
