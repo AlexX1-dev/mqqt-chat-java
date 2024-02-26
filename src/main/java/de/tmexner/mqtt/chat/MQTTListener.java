@@ -1,4 +1,4 @@
-package de.tmexner.mqtt.chat.java;
+package de.tmexner.mqtt.chat;
 
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;

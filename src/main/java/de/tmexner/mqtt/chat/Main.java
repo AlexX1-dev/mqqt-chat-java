@@ -1,4 +1,4 @@
-package de.tmexner.mqtt.chat.java;
+package de.tmexner.mqtt.chat;
 
 public class Main {
 
