@@ -130,9 +130,9 @@ public class ChatClientGUI extends JFrame {
 
   private void initializeChats() {
     chatListModel.addElement("John_Doe");
-    chats.put("John Doe", new Chat("John_Doe"));
+    chats.put("John_Doe", new Chat("John_Doe"));
     chatListModel.addElement("Jane_Doe");
-    chats.put("Jane Doe", new Chat("Jane_Doe"));
+    chats.put("Jane_Doe", new Chat("Jane_Doe"));
   }
 
   private void createGUIWindow() {
