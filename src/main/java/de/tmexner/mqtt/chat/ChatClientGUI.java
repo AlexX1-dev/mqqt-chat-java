@@ -79,7 +79,8 @@ public class ChatClientGUI extends JFrame {
   }
 
   private void createChatList() {
-    chatListModel = new DefaultListModel<>();
+    System.out.println("Creating chat list");
+    chatListModel = new DefaultListModel<String>();
     chatList = new JList<>(chatListModel);
     chatList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     chatList.addListSelectionListener(e -> chatSelected());
@@ -129,6 +130,7 @@ public class ChatClientGUI extends JFrame {
   }
 
   private void initializeChats() {
+    System.out.println("Initializing chats");
     chatListModel.addElement("John_Doe");
     chats.put("John_Doe", new Chat("John_Doe"));
     chatListModel.addElement("Jane_Doe");

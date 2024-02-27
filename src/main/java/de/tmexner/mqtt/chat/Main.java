@@ -1,9 +1,15 @@
 package de.tmexner.mqtt.chat;
 
-public class Main {
+import javax.swing.SwingUtilities;
 
+public class Main {
   public static void main(String[] args) {
-    ChatClientGUI gui = new ChatClientGUI();
-    gui.setVisible(true);
+    SwingUtilities.invokeLater(new Runnable() {
+      public void run() {
+        ChatClientGUI gui = new ChatClientGUI();
+        gui.setVisible(true);
+        gui.requestFocus();
+      }
+    });
   }
 }
