@@ -57,6 +57,37 @@ public class ChatClientGUI extends JFrame {
     initializeChats();
   }
 
+  public void receiveMQTTMessage(String topic, String message) {
+    if (topic.equals(getTopicForSelectedChat())) {
+      String formattedMessage = getUsername() + ": " + message;
+      chatDisplayArea.append(formattedMessage + "\n");
+      Chat chat = chats.get(getSelectedChat());
+      // Save the message to the chat history
+      chat.addMessage(formattedMessage);
+    }
+
+  }
+
+  public String getUsername() {
+    return usernameField.getText().trim();
+  }
+
+  public String getSelectedChat() {
+    return chatList.getSelectedValue();
+  }
+
+  public String getTopicForSelectedChat() {
+    return "messenger/" + getUsername() + "/" + getSelectedChat();
+  }
+
+  public String getMqttBrokerIp() {
+    return mqttBrokerIpField.getText().trim();
+  }
+
+  public int getMqttBrokerPort() {
+    return Integer.parseInt(mqttBrokerPortField.getText().trim());
+  }
+
   private void createChat() {
     JPanel chatPanel = new JPanel();
     chatPanel.setLayout(new BorderLayout());
@@ -190,36 +221,5 @@ public class ChatClientGUI extends JFrame {
 
   private void sendMQTTMessage(String topic, String message) {
 
-  }
-
-  public void receiveMQTTMessage(String topic, String message) {
-    if (topic.equals(getTopicForSelectedChat())) {
-      String formattedMessage = getUsername() + ": " + message;
-      chatDisplayArea.append(formattedMessage + "\n");
-      Chat chat = chats.get(getSelectedChat());
-      // Save the message to the chat history
-      chat.addMessage(formattedMessage);
-    }
-
-  }
-
-  public String getUsername() {
-    return usernameField.getText().trim();
-  }
-
-  public String getSelectedChat() {
-    return chatList.getSelectedValue();
-  }
-
-  public String getTopicForSelectedChat() {
-    return "messenger/" + getUsername() + "/" + getSelectedChat();
-  }
-
-  public String getMqttBrokerIp() {
-    return mqttBrokerIpField.getText().trim();
-  }
-
-  public int getMqttBrokerPort() {
-    return Integer.parseInt(mqttBrokerPortField.getText().trim());
   }
 }
