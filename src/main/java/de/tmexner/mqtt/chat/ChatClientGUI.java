@@ -187,11 +187,11 @@ public class ChatClientGUI extends JFrame {
   }
 
   private void chatSelected() {
-    Chat selectedChat = chats.get(chatList.getSelectedValue());
+    String selectedChat = chatList.getSelectedValue();
     chatDisplayArea.setText("");
     chatDisplayArea.append("Chat history for " + selectedChat + "\n");
 
-    List<String> history = selectedChat.getMessages();
+    List<String> history = chats.get(chatList.getSelectedValue()).getMessages();
     if (history != null) {
       for (String message : history) {
         chatDisplayArea.append(message + "\n");
@@ -207,7 +207,7 @@ public class ChatClientGUI extends JFrame {
     }
 
     String message = messageInputField.getText().trim();
-    if (!message.isEmpty()) {
+    if (!message.isEmpty() && message != "") {
       String formattedMessage = "Me: " + message;
       chatDisplayArea.append(formattedMessage + "\n");
       messageInputField.setText("");
