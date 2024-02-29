@@ -132,32 +132,34 @@ public class ChatClientGUI extends JFrame {
 
   private void setupConnectButton() {
     connectButton = new JButton("Connect");
-    connectButton.addActionListener(e -> {
-      String username = getUsername();
-      if (username.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Please enter a username.", "Error", JOptionPane.ERROR_MESSAGE);
-        return;
-      }
+    connectButton.addActionListener(e -> connectWithChecks());
+  }
 
-      String mqttBrokerIp = getMqttBrokerIp();
-      if (mqttBrokerIp.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Please enter a broker IP.", "Error", JOptionPane.ERROR_MESSAGE);
-        return;
-      }
+  private void connectWithChecks() {
+    String username = getUsername();
+    if (username.isEmpty()) {
+      JOptionPane.showMessageDialog(this, "Please enter a username.", "Error", JOptionPane.ERROR_MESSAGE);
+      return;
+    }
 
-      int mqttBrokerPort = getMqttBrokerPort();
-      if (mqttBrokerPort <= 0) {
-        JOptionPane.showMessageDialog(this, "Please enter a valid broker port.", "Error", JOptionPane.ERROR_MESSAGE);
-        return;
-      }
+    String mqttBrokerIp = getMqttBrokerIp();
+    if (mqttBrokerIp.isEmpty()) {
+      JOptionPane.showMessageDialog(this, "Please enter a broker IP.", "Error", JOptionPane.ERROR_MESSAGE);
+      return;
+    }
 
-      MQTTListener listener = new MQTTListener(mqttBrokerIp, mqttBrokerPort, username, this);
-      try {
-        listener.subscribe();
-      } catch (MqttException ex) {
-        throw new RuntimeException(ex);
-      }
-    });
+    int mqttBrokerPort = getMqttBrokerPort();
+    if (mqttBrokerPort <= 0) {
+      JOptionPane.showMessageDialog(this, "Please enter a valid broker port.", "Error", JOptionPane.ERROR_MESSAGE);
+      return;
+    }
+
+    MQTTListener listener = new MQTTListener(mqttBrokerIp, mqttBrokerPort, username, this);
+    try {
+      listener.subscribe();
+    } catch (MqttException ex) {
+      throw new RuntimeException(ex);
+    }
   }
 
   private void initializeChats() {
