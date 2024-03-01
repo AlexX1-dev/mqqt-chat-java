@@ -3,7 +3,7 @@ package de.tmexner.mqtt.chat;
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
-public class MQTTListener implements MqttCallback {
+public class MQTTController implements MqttCallback {
   private final String username;
 
   private final ChatClientGUI gui;
@@ -12,7 +12,7 @@ public class MQTTListener implements MqttCallback {
 
   private final String topic;
 
-  public MQTTListener(String ip, int port, String username, ChatClientGUI gui) {
+  public MQTTController(String ip, int port, String username, ChatClientGUI gui) {
     this.username = username;
     this.broker = "tcp://" + ip + ":" + port;
     this.topic = "mqtt-chat/" + username + "/#";
@@ -44,6 +44,10 @@ public class MQTTListener implements MqttCallback {
 
   @Override
   public void deliveryComplete(IMqttDeliveryToken iMqttDeliveryToken) {
+
+  }
+
+  public void sendMQTTMessage(String topic, String message) {
 
   }
 }

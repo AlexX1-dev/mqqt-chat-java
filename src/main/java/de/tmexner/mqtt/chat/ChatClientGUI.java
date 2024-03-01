@@ -44,6 +44,8 @@ public class ChatClientGUI extends JFrame {
 
   private JPanel usernamePanel;
 
+  private MQTTController controller;
+
   public ChatClientGUI() {
     createGUIWindow();
     createUIComponents();
@@ -149,14 +151,14 @@ public class ChatClientGUI extends JFrame {
     }
 
     int mqttBrokerPort = getMqttBrokerPort();
-    if (mqttBrokerPort <= 0) {
+    if (mqttBrokerPort <= 1024 && mqttBrokerPort >= 65535) {
       JOptionPane.showMessageDialog(this, "Please enter a valid broker port.", "Error", JOptionPane.ERROR_MESSAGE);
       return;
     }
 
-    MQTTListener listener = new MQTTListener(mqttBrokerIp, mqttBrokerPort, username, this);
+    controller = new MQTTController(mqttBrokerIp, mqttBrokerPort, username, this);
     try {
-      listener.subscribe();
+      controller.subscribe();
     } catch (MqttException ex) {
       throw new RuntimeException(ex);
     }
@@ -217,11 +219,8 @@ public class ChatClientGUI extends JFrame {
 
       selectedChat.addMessage(formattedMessage);
 
-      sendMQTTMessage(selectedChat.getUser(), message);
+      controller.sendMQTTMessage(selectedChat.getUser(), message);
     }
   }
 
-  private void sendMQTTMessage(String topic, String message) {
-
-  }
 }
