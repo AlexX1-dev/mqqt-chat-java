@@ -38,7 +38,7 @@ public class MQTTController implements MqttCallback {
   @Override
   public void messageArrived(String s, MqttMessage mqttMessage) throws Exception {
     String message = new String(mqttMessage.getPayload());
-    gui.receiveMQTTMessage(s, message);
+    gui.addMessageToHistory(s, message);
 
   }
 

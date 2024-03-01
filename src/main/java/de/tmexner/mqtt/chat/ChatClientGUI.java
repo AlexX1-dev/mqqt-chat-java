@@ -59,7 +59,7 @@ public class ChatClientGUI extends JFrame {
     initializeChats();
   }
 
-  public void receiveMQTTMessage(String topic, String message) {
+  public void addMessageToHistory(String topic, String message) {
     if (topic.equals(getTopicForSelectedChat())) {
       String formattedMessage = getUsername() + ": " + message;
       chatDisplayArea.append(formattedMessage + "\n");
