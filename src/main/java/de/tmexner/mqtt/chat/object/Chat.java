@@ -1,6 +1,7 @@
 package de.tmexner.mqtt.chat.object;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Chat {
   // User is also the topic
@@ -16,7 +17,7 @@ public class Chat {
     this.messages.add(message);
   }
 
-  public ArrayList<String> getMessages() {
+  public List<String> getMessages() {
     return this.messages;
   }
 
