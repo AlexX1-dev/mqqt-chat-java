@@ -103,7 +103,7 @@ public class ChatClientGUI extends JFrame {
         messagePanel.setLayout(new BorderLayout());
         messageInputField = new JTextField();
         JButton sendMessageButton = new JButton("Send");
-        sendMessageButton.addActionListener(e -> sendMessage());
+        sendMessageButton.addActionListener(e -> Util.sendMessage(this, controller, chats, chatList, chatDisplayArea, messageInputField));
         messagePanel.add(messageInputField, BorderLayout.CENTER);
         messagePanel.add(sendMessageButton, BorderLayout.EAST);
 
@@ -204,24 +204,6 @@ public class ChatClientGUI extends JFrame {
         }
     }
 
-    private void sendMessage() {
-        Chat selectedChat = chats.get(chatList.getSelectedValue());
-        if (selectedChat == null) {
-            JOptionPane.showMessageDialog(this, "No chat selected.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        String message = messageInputField.getText().trim();
-        if (!message.isEmpty()) {
-            String formattedMessage = "Me: " + message;
-            chatDisplayArea.append(formattedMessage + "\n");
-            messageInputField.setText("");
-            System.out.println("Sending message using topic " + getTopicForSelectedChat());
-
-            selectedChat.addMessage(formattedMessage);
-
-            controller.sendMQTTMessage(selectedChat.getUser(), message);
-        }
-    }
+    
 
 }
